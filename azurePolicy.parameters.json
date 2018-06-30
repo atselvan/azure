@@ -1,0 +1,10 @@
+{
+    "allowedResourceTypes": {
+        "type": "Array",
+        "metadata": {
+            "description": "The type of Allowed resource types",
+            "displayName": "Allowed Resource Types",
+            "strongType": "resourceTypes"
+        }
+    }
+}

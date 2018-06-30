@@ -1,0 +1,6 @@
+# Azure cli commands
+az policy definition list --query "[?name=='allowedTypes']"
+az provider list --query "[].{Provider:namespace}" --out table
+az provider show --namespace Microsoft.Storage --query "resourceTypes[*].resourceType" --out table
+az provider show --namespace Microsoft.Compute --query "resourceTypes[*].resourceType" --out table
+az provider show --namespace Microsoft.Network --query "resourceTypes[*].resourceType" --out table

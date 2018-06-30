@@ -1,0 +1,125 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": {
+      "type": "string",
+      "defaultValue": "Test",
+      "allowedValues": [
+        "Dev",
+        "Test",
+        "Acc",
+        "Prod"
+      ],
+      "metadata": {
+        "description": "The environment to deploy the resources in"
+      }
+    },
+    "companyName": {
+      "type": "string",
+      "defaultValue": "Sentia",
+      "metadata": {
+        "description": "The name of the company. Will be used to prefix the name of the resources"
+      }
+    },
+    "vnAddPrefix": {
+      "type": "string",
+      "defaultValue": "172.16.0.0/12",
+      "metadata": {
+        "description": "Virtual network address prefix"
+      }
+    },
+    "sn1AddPrefix": {
+      "type": "string",
+      "defaultValue": "172.16.0.0/16",
+      "metadata": {
+        "description": "Subnet 1 network address prefix"
+      }
+    },
+    "sn2AddPrefix": {
+      "type": "string",
+      "defaultValue": "172.17.0.0/16",
+      "metadata": {
+        "description": "Subnet 1 network address prefix"
+      }
+    },
+    "sn3AddPrefix": {
+      "type": "string",
+      "defaultValue": "172.18.0.0/16",
+      "metadata": {
+        "description": "Subnet 1 network address prefix"
+      }
+    }
+  },
+  "variables": {
+    "storageName": "[concat(toLower(parameters('companyName')), uniqueString(resourceGroup().id))]",
+    "virtualNetworkName": "[concat(toLower(parameters('companyName')), '-vn')]",
+    "sn1Name": "[concat(toLower(parameters('companyName')), '-sn1')]",
+    "sn2Name": "[concat(toLower(parameters('companyName')), '-sn2')]",
+    "sn3Name": "[concat(toLower(parameters('companyName')), '-sn3')]"
+  },
+  "resources": [
+    {
+      "name": "[variables('storageName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2016-01-01",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "Storage",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "Environment": "[parameters('Environment')]",
+        "Company": "[parameters('companyName')]"
+      },
+      "properties": {
+        "encription": {
+          "services": {
+            "blob": {
+              "enabled": "true"
+            }
+          },
+          "keySource": "Microsoft.Storage"
+        }
+      }
+    },
+    {
+      "name": "[variables('virtualNetworkName')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2017-10-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "Environment": "[parameters('Environment')]",
+        "Company": "[parameters('companyName')]"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('vnAddPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('sn1Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('sn1AddPrefix')]"
+            }
+          },
+          {
+            "name": "[variables('sn2Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('sn2AddPrefix')]"
+            }
+          },
+          {
+            "name": "[variables('sn3Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('sn3AddPrefix')]"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {}
+}

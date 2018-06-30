@@ -1,0 +1,11 @@
+{
+    "if": {
+        "not": {
+            "field": "type",
+            "in": "[parameters('allowedResourceTypes')]"
+        }
+    },
+    "then": {
+        "effect": "deny"
+    }
+}
