@@ -1,53 +1,4 @@
-#Generating Autentication token
-curl -X POST \
-  https://login.microsoftonline.com/f5fca3f3-8f63-4c55-b6b5-e4ec08518f6a/oauth2/token \
-  -H 'Cache-Control: no-cache' \
-  -F grant_type=client_credentials \
-  -F client_id=fcb5a2f6-033f-4b59-b90b-db7769d46fa5 \
-  -F "client_secret=$clientSecret" \
-  -F resource=https://management.azure.com/
-
-# Creating Policy Definition
-curl -X PUT \
-  'https://management.azure.com/subscriptions/fd072286-94be-497b-a047-a184fe776f0c/providers/Microsoft.authorization/policydefinitions/allowedResourceTypes?api-version=2018-03-01' \
-  -H "Authorization: Bearer $bearerToken" \
-  -H 'Cache-Control: no-cache' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "properties": {
-        "displayName": "Allowed Resource Types",
-        "description": "This policy allows only the compute, network and storage resource types.",
-        "policyRule": {
-            "if":{
-                "not": {
-                    "field":"type",
-                    "in": "[parameters('\''allowedResourceTypes'\'')]"
-                }
-            },
-            "then": {
-                "effect": "deny"
-             }
-        },
-        "parameters": {
-            "allowedResourceTypes": {
-                "type": "Array",
-                "metadata": {
-                    "description" : "The type of Allowed resource types",
-                    "displayName": "Allowed Resource Types",
-                    "strongType": "resourceTypes"
-                }
-            }
-        }
-    }
-}'
-
-# Assigning Policy Definition
-curl -X PUT \
-  'https://management.azure.com/subscriptions/fd072286-94be-497b-a047-a184fe776f0c/providers/Microsoft.Authorization/policyAssignments/allowedTypes?api-version=2018-03-01' \
-  -H 'Authorization: Bearer $bearerToken' \
-  -H 'Cache-Control: no-cache' \
-  -H 'Content-Type: application/json' \
-  -d '{
+{
     "properties": {
       "displayName": "Allowed Resource Types",
       "description": "This policy allows only the compute, network and storage resource types",
@@ -159,4 +110,4 @@ curl -X PUT \
         }
       }
     }
-  }'  
+  }

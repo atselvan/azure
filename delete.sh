@@ -1,4 +1,11 @@
+#!/bin/bash
+
 #Delete created policies and resource groups
-az policy definition delete --name allowedTypes
-az policy assignment delete -g sentia-rg -n allowedTypes
+echo "Deleting Policy Assignment..."
+az policy assignment delete -n allowedResourceTypes
+
+echo "Deleting Policy Definition..."
+az policy definition delete --name allowedResourceTypes
+
+echo "Deleting Resource Group..."
 az group delete --name sentia-rg --yes
