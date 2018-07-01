@@ -1,0 +1,7 @@
+{
+	"subscriptionId": "fd072286-94be-497b-a047-a184fe776f0c",
+	"tenant_id": "f5fca3f3-8f63-4c55-b6b5-e4ec08518f6a",
+	"grant_type": "client_credentials",
+	"client_id": "fcb5a2f6-033f-4b59-b90b-db7769d46fa5",
+	"resource": "https://management.azure.com/"
+}
