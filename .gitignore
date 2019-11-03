@@ -1,4 +1,3 @@
 .idea
 .DS_Store
-secret
-azure-cli/src/com/sentia/azure-cli/azure-cli
+go-azure-cli/src/com/sentia/azure-cli/azure-cli

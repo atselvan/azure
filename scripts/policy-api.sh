@@ -44,7 +44,7 @@ curl -X PUT \
 # Assigning Policy Definition
 curl -X PUT \
   'https://management.azure.com/subscriptions/fd072286-94be-497b-a047-a184fe776f0c/providers/Microsoft.Authorization/policyAssignments/allowedTypes?api-version=2018-03-01' \
-  -H 'Authorization: Bearer $bearerToken' \
+  -H "Authorization: Bearer $bearerToken" \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -d '{
