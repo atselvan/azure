@@ -1,13 +1,16 @@
 
 # Resource group details
-$rgName = "ps-rg"
+$rgName = "ps-network"
 $location = "westeurope"
 
 # Tags
 $tags = @{ Owner = “allantony2008@gmail.com”; Environment = “Labs”; CostCenter = “PSIN001”}
 
+# Create Resource group
+New-AzResourceGroup -Name $rgName -Location $location
+
 # Virtual network details
-$vnetName = "ps-vnet"
+$vnetName = "ps-vnet01"
 $vnetAddressPrefix = "10.0.0.0/22"
 
 # Subnet details

@@ -1,12 +1,12 @@
 # Resource group details
-$rgName = "ps-rg"
+$rgName = "ps-vm"
 $location = "westeurope"
 
 # Tags
 $tags = @{ Owner = “allantony2008@gmail.com”; Environment = “Labs”; CostCenter = “PSIN001”}
 
 # Virtual network details
-$vnetName = "ps-vnet"
+$vnetName = "ps-vnet01"
 
 # Virtual Machine details
 $vmName = "vm001"
@@ -14,6 +14,9 @@ $vmSize = "Standard_B1s"
 $pipName = "$vmName-ip"
 $nsgName = "$vmName-nsg"
 $nicName = "$vmName-nic"
+
+# Create Resource group
+New-AzResourceGroup -Name $rgName -Location $location
 
 # Create user object
 $cred = Get-Credential -Message "Enter a username and password for the virtual machine."
